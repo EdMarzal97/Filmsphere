@@ -7,6 +7,7 @@ import {
   Param,
   Body,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from '../../dto/movies/create-movie.dto';
@@ -17,13 +18,18 @@ export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
-  findAll() {
-    return this.moviesService.findAll();
+  findAll(@Query('q') q?: string) {
+    return this.moviesService.findAll(q);
   }
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.moviesService.findOne(id);
+  }
+
+  @Get(':id/actors')
+  getActorsByMovie(@Param('id') id: number) {
+    return this.moviesService.findActorsByMovie(Number(id));
   }
 
   @Post()

@@ -12,8 +12,29 @@ export class ActorsService {
     private readonly actorRepository: Repository<Actor>,
   ) {}
 
-  findAll(): Promise<Actor[]> {
-    return this.actorRepository.find({ relations: ['movies'] });
+  async findMoviesByActor(actorId: number) {
+    const actor = await this.actorRepository.findOne({
+      where: { id: actorId },
+      relations: ['movies'], // ✅ works even if JoinTable is on Movie
+    });
+
+    if (!actor) {
+      throw new NotFoundException('Actor not found');
+    }
+
+    return actor.movies;
+  }
+
+  async findAll(search?: string) {
+    const query = this.actorRepository.createQueryBuilder('actor');
+
+    if (search) {
+      query.where('LOWER(actor.name) LIKE LOWER(:search)', {
+        search: `%${search}%`,
+      });
+    }
+
+    return query.getMany();
   }
 
   async findOne(id: number): Promise<Actor> {

@@ -15,8 +15,29 @@ export class MoviesService {
     private readonly actorRepository: Repository<Actor>,
   ) {}
 
-  async findAll(): Promise<Movie[]> {
-    return this.movieRepository.find({ relations: ['actors', 'ratings'] });
+  async findActorsByMovie(movieId: number) {
+    const movie = await this.movieRepository.findOne({
+      where: { id: movieId },
+      relations: ['actors'],
+    });
+
+    if (!movie) {
+      throw new NotFoundException('Movie not found');
+    }
+
+    return movie.actors;
+  }
+
+  async findAll(search?: string) {
+    const query = this.movieRepository.createQueryBuilder('movie');
+
+    if (search) {
+      query.where('LOWER(movie.title) LIKE LOWER(:search)', {
+        search: `%${search}%`,
+      });
+    }
+
+    return query.getMany();
   }
 
   async findOne(id: number): Promise<Movie> {

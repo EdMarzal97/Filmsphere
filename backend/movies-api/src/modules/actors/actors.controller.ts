@@ -7,6 +7,7 @@ import {
   Param,
   Body,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { ActorsService } from './actors.service';
 import { CreateActorDto } from '../../dto/actors/create-actor.dto';
@@ -17,13 +18,18 @@ export class ActorsController {
   constructor(private readonly actorsService: ActorsService) {}
 
   @Get()
-  findAll() {
-    return this.actorsService.findAll();
+  findAll(@Query('q') q?: string) {
+    return this.actorsService.findAll(q);
   }
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.actorsService.findOne(id);
+  }
+
+  @Get(':id/movies')
+  getMoviesByActor(@Param('id') id: number) {
+    return this.actorsService.findMoviesByActor(Number(id));
   }
 
   @Post()
