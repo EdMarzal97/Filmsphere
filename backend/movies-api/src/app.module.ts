@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ActorsModule } from './modules/actors/actors.module';
+import { MoviesModule } from './modules/movies/movies.module';
+import { RatingsModule } from './modules/ratings/ratings.module';
 
 @Module({
   imports: [
@@ -15,6 +18,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true,
       synchronize: false,
     }),
+    MoviesModule,
+    ActorsModule,
+    RatingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
