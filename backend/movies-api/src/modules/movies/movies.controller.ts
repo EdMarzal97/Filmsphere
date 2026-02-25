@@ -8,10 +8,12 @@ import {
   Body,
   ParseIntPipe,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from '../../dto/movies/create-movie.dto';
 import { UpdateMovieDto } from '../../dto/movies/update-movie.dto';
+import { ApiKeyGuard } from '../../common/guards/api-key.guard';
 
 @Controller('movies')
 export class MoviesController {
@@ -32,16 +34,19 @@ export class MoviesController {
     return this.moviesService.findActorsByMovie(Number(id));
   }
 
+  @UseGuards(ApiKeyGuard)
   @Post()
   create(@Body() dto: CreateMovieDto) {
     return this.moviesService.create(dto);
   }
 
+  @UseGuards(ApiKeyGuard)
   @Put(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateMovieDto) {
     return this.moviesService.update(id, dto);
   }
 
+  @UseGuards(ApiKeyGuard)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.moviesService.remove(id);
