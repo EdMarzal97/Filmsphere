@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ActorsModule } from './modules/actors/actors.module';
 import { MoviesModule } from './modules/movies/movies.module';
 import { RatingsModule } from './modules/ratings/ratings.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { RatingsModule } from './modules/ratings/ratings.module';
     MoviesModule,
     ActorsModule,
     RatingsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

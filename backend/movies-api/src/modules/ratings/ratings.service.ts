@@ -14,6 +14,27 @@ export class RatingsService {
     private readonly movieRepository: Repository<Movie>,
   ) {}
 
+  async findByMovie(movieId: number) {
+    return this.ratingRepository.find({
+      where: {
+        movie: { id: movieId },
+      },
+    });
+  }
+
+  async findOne(id: number) {
+    const rating = await this.ratingRepository.findOne({
+      where: { id },
+      relations: ['movie'],
+    });
+
+    if (!rating) {
+      throw new NotFoundException('Rating not found');
+    }
+
+    return rating;
+  }
+
   async create(dto: CreateRatingDto): Promise<Rating> {
     const movie = await this.movieRepository.findOne({
       where: { id: dto.movieId },
