@@ -11,16 +11,13 @@ export default async function ActorsPage() {
   const actors = await getActors();
 
   return (
-    <main className="p-6 max-w-4xl mx-auto">
+    <main className="p-6 max-w-4xl mx-auto text-black">
       <h1 className="text-2xl font-bold mb-4">Actors</h1>
 
       <ul className="space-y-3">
         {actors.map((actor) => (
-          <li key={actor.id} className="border p-4 rounded">
-            <Link
-              href={`/actors/${actor.id}`}
-              className="text-blue-600 font-semibold"
-            >
+          <li key={actor.id} className="p-4">
+            <Link href={`/actors/${actor.id}`} className="font-semibold">
               {actor.name}
             </Link>
           </li>

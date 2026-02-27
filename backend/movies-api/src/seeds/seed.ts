@@ -30,7 +30,16 @@ async function seed() {
     // Actors
     const elijahWood = actorRepo.create({ name: 'Elijah Wood' });
     const christopherLee = actorRepo.create({ name: 'Christopher Lee' });
-    await actorRepo.save([elijahWood, christopherLee]);
+    const danielRadcliffe = actorRepo.create({ name: 'Daniel Radcliffe' });
+    const timotheeChalamet = actorRepo.create({ name: 'Timothée Chalamet' });
+    const daveBautista = actorRepo.create({ name: 'Dave Bautista' });
+    await actorRepo.save([
+      elijahWood,
+      christopherLee,
+      danielRadcliffe,
+      timotheeChalamet,
+      daveBautista,
+    ]);
 
     // Movies
     const starWars = movieRepo.create({
@@ -47,7 +56,21 @@ async function seed() {
       actors: [elijahWood, christopherLee],
     });
 
-    await movieRepo.save([starWars, lotr]);
+    const harryPotter1 = movieRepo.create({
+      title: "Harry Potter and the Sorcerer's Stone",
+      description: 'Fantasy',
+      releaseYear: 2001,
+      actors: [danielRadcliffe],
+    });
+
+    const dune1 = movieRepo.create({
+      title: 'Dune: Part One',
+      description: 'Sci-Fi',
+      releaseYear: 2021,
+      actors: [timotheeChalamet, daveBautista],
+    });
+
+    await movieRepo.save([starWars, lotr, harryPotter1, dune1]);
 
     // Ratings
     const rating1 = ratingRepo.create({
@@ -62,7 +85,38 @@ async function seed() {
       movie: lotr,
     });
 
-    await ratingRepo.save([rating1, rating2]);
+    const rating3 = ratingRepo.create({
+      score: 4,
+      comment: 'Incredible movie',
+      movie: lotr,
+    });
+
+    const rating4 = ratingRepo.create({
+      score: 4,
+      comment: 'Amazing for all the family',
+      movie: harryPotter1,
+    });
+
+    const rating5 = ratingRepo.create({
+      score: 5,
+      comment: 'Revival of a classic',
+      movie: dune1,
+    });
+
+    const rating6 = ratingRepo.create({
+      score: 4,
+      comment: 'A good adaptation of the book after years',
+      movie: dune1,
+    });
+
+    await ratingRepo.save([
+      rating1,
+      rating2,
+      rating3,
+      rating4,
+      rating5,
+      rating6,
+    ]);
 
     console.log('Database seeded successfully');
   } catch (err) {

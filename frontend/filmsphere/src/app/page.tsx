@@ -46,29 +46,24 @@ export default async function HomePage({ searchParams }: PageProps) {
   const actors = results[1].status === "fulfilled" ? results[1].value : [];
 
   return (
-    <main className="p-6 max-w-5xl mx-auto space-y-10">
+    <div className="p-6 max-w-4xl mx-auto space-y-10 text-black">
       <SearchInput />
 
       <section>
         <h2 className="text-2xl font-bold mb-4">Movies</h2>
 
         {movies.length === 0 ? (
-          <p className="text-gray-500">No movies available.</p>
+          <p className="font-semibold">No movies available.</p>
         ) : (
           <ul className="space-y-3">
             {movies.map((movie) => (
-              <li key={movie.id} className="border p-4 rounded">
-                <Link
-                  href={`/movies/${movie.id}`}
-                  className="text-blue-600 font-semibold"
-                >
+              <li key={movie.id} className="py-4">
+                <Link href={`/movies/${movie.id}`} className="font-semibold">
                   {movie.title}
                 </Link>
 
                 {movie.releaseYear && (
-                  <p className="text-sm text-gray-600">
-                    Release year: {movie.releaseYear}
-                  </p>
+                  <p className="">Release year: {movie.releaseYear}</p>
                 )}
               </li>
             ))}
@@ -80,15 +75,12 @@ export default async function HomePage({ searchParams }: PageProps) {
         <h2 className="text-2xl font-bold mb-4">Actors</h2>
 
         {actors.length === 0 ? (
-          <p className="text-gray-500">No actors available.</p>
+          <p className="font-semibold">No actors available.</p>
         ) : (
           <ul className="space-y-3">
             {actors.map((actor) => (
-              <li key={actor.id} className="border p-4 rounded">
-                <Link
-                  href={`/actors/${actor.id}`}
-                  className="text-blue-600 font-semibold"
-                >
+              <li key={actor.id} className="py-4">
+                <Link href={`/actors/${actor.id}`} className="font-semibold">
                   {actor.name}
                 </Link>
               </li>
@@ -96,6 +88,6 @@ export default async function HomePage({ searchParams }: PageProps) {
           </ul>
         )}
       </section>
-    </main>
+    </div>
   );
 }

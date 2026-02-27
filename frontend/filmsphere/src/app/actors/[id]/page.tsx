@@ -29,14 +29,14 @@ export default async function ActorPage({
   ]);
 
   return (
-    <main className="p-6 max-w-4xl mx-auto">
+    <main className="p-6 max-w-4xl mx-auto text-black">
       <h1 className="text-2xl font-bold">{actor.name}</h1>
 
       <section className="mt-6">
         <h2 className="font-semibold text-lg">Movies</h2>
 
         {movies.length === 0 ? (
-          <p className="text-gray-500 mt-2">No movies found</p>
+          <p className="mt-2">No movies found</p>
         ) : (
           <ul className="list-disc ml-6">
             {movies.map((movie) => (

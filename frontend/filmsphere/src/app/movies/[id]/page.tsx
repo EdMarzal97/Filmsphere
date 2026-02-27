@@ -18,17 +18,13 @@ export default async function MoviePage({
   const movie = await getMovie(id);
 
   return (
-    <main className="p-6 max-w-4xl mx-auto">
+    <div className="p-6 max-w-4xl mx-auto text-black">
       <h1 className="text-2xl font-bold">{movie.title}</h1>
 
-      {movie.description && (
-        <p className="text-gray-700 mt-2">{movie.description}</p>
-      )}
+      {movie.description && <p className="mt-2">{movie.description}</p>}
 
       {movie.releaseYear && (
-        <p className="text-sm text-gray-500">
-          Release year: {movie.releaseYear}
-        </p>
+        <p className="text-sm">Release year: {movie.releaseYear}</p>
       )}
 
       <section className="mt-6">
@@ -51,6 +47,6 @@ export default async function MoviePage({
           ))}
         </ul>
       </section>
-    </main>
+    </div>
   );
 }
